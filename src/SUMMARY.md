@@ -252,6 +252,8 @@
 
 ---
 
+[Appendix T: Terminology (zh-TW)](./appendix/terminology-zh-tw.md)
+
 [Appendix A: Background topics](./appendix/background.md)
 
 [Appendix B: Glossary](./appendix/glossary.md)
