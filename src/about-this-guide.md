@@ -1,4 +1,88 @@
-# About this guide
+# 關於本指南
+
+本指南旨在說明 Rust 編譯器 rustc 的運作方式，並協助新貢獻者參與 rustc 的開發。
+
+本書分成數個部分：
+
+1. [建置與除錯 `rustc`][p1]：不論你想怎麼貢獻，都會用到的資訊，涵蓋建置、除錯、效能分析等。
+1. [對 Rust 的貢獻][p2]：同樣適用於所有貢獻者，內容包含貢獻流程、git 與 GitHub 的使用、功能穩定化等。
+1. [自舉流程][p3]：介紹 Rust 編譯器如何利用先前版本建構自己，並說明自舉流程與除錯方法。
+1. [編譯器高階架構][p4]：討論編譯器的高階架構與各個編譯階段。
+1. [原始碼表示法][p5]：描述將使用者原始碼轉換為編譯器可處理的各種表示形式的過程。
+1. [支援基礎設施][p6]：涵蓋命令列參數慣例、rustc_driver 與 rustc_interface 等進入點，以及錯誤與 lint 的設計與實作。
+1. [程式分析][p7]：討論編譯器用來檢查程式各種性質的分析（例如型別檢查），以及如何支援後續步驟。
+1. [從 MIR 到二進位檔][p8]：說明如何產生連結後的可執行機器碼。
+1. [附錄][p9]：收錄各種參考資料，其中包含一份詞彙表。
+
+[p1]: ./building/how-to-build-and-run.html
+[p2]: ./contributing.md
+[p3]: ./building/bootstrapping/intro.md
+[p4]: ./part-2-intro.md
+[p5]: ./part-3-intro.md
+[p6]: ./cli.md
+[p7]: ./part-4-intro.md
+[p8]: ./part-5-intro.md
+[p9]: ./appendix/background.md
+
+### 時時變動
+
+請記得，`rustc` 是一個實際運作的產品，有一群貢獻者持續開發。
+因此程式碼會不斷變動，也難免有技術債。
+此外，指南中談到的許多構想是理想化的設計，尚未完全落實。
+以上都讓本指南不容易時時保持完全最新！
+
+本指南也是開源的，原始碼放在 [GitHub 儲存庫]。
+若發現內容有誤，請提出 issue，或更好的是直接送出修正 PR！
+
+如果你打算貢獻本指南，請參考[本指南關於撰寫文件的子章節]。
+
+[subsection on writing documentation in this guide]: contributing.md#contributing-to-rustc-dev-guide
+
+> 「諸行無常」，觀之以慧，離苦得樂。
+> ——《法句經》偈 277
+
+## 其他資訊來源
+
+你現在閱讀的本指南，介紹編譯器各部分如何運作，以及如何貢獻編譯器。
+
+你可能還會需要以下網站：
+
+- [rustc API 文件]：編譯器、開發工具與內部工具的 rustdoc 文件
+- [Forge]：描述 Rust 基礎設施、團隊流程等
+- [compiler-team]：編譯器團隊的主站，包含流程、活躍工作小組與團隊行事曆
+- [std-dev-guide]：標準函式庫開發指南
+- [rust-analyzer book]：rust-analyzer 的文件
+- [t-compiler Zulip][z]
+- [Rust Internals 論壇][rif]：討論與提問的地方
+- [Rust 參考手冊][rr]：雖未聚焦編譯器內部，但仍是極佳的資料來源
+- 雖然已過時，[Tom Lee 的文章][tlgba] 仍很有幫助
+- [Rust Compiler Testing Docs][rctd]
+- 對於 [@bors]，可參考[這張小抄][cheatsheet]
+- Google 仍是最好的朋友。你可以[搜尋所有 Rust 文件][gsearchdocs]（標準函式庫、編譯器、書籍、參考手冊與指南），快速找到想要的資訊。
+- Rustdoc 內建的搜尋也很好用，可以在關注的 crate 中搜尋型別與函式，也可以用型別簽章搜尋！
+  例如搜尋 `* -> vec` 可以找到所有回傳 `Vec<T>` 的函式。
+  **提示：** 在任何 Rustdoc 頁面按 `?` 可以查看更多技巧與快捷鍵。
+
+
+[rustc dev guide]: about-this-guide.md
+[gsearchdocs]: https://www.google.com/search?q=site:doc.rust-lang.org+your+query+here
+[stddocs]: https://doc.rust-lang.org/std
+[rif]: http://internals.rust-lang.org
+[rr]: https://doc.rust-lang.org/book/
+[rustforge]: https://forge.rust-lang.org/
+[tlgba]: https://tomlee.co/2014/04/a-more-detailed-tour-of-the-rust-compiler/
+[ro]: https://www.rustaceans.org/
+[rctd]: tests/intro.md
+[cheatsheet]: https://bors.rust-lang.org/
+[Miri]: https://github.com/rust-lang/miri
+[@bors]: https://github.com/bors
+[a GitHub repository]: https://github.com/rust-lang/rustc-dev-guide/
+[rustc API docs]: https://doc.rust-lang.org/nightly/nightly-rustc/rustc_middle
+[Forge]: https://forge.rust-lang.org/
+[compiler-team]: https://github.com/rust-lang/compiler-team/
+[std-dev-guide]: https://std-dev-guide.rust-lang.org/
+[rust-analyzer book]: https://rust-analyzer.github.io/book/
+[z]: https://rust-lang.zulipchat.com/#narrow/stream/131828-t-compiler# About this guide
 
 This guide is meant to help document how rustc – the Rust compiler – works,
 as well as to help new contributors get involved in rustc development.
